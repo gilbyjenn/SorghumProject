@@ -28,7 +28,7 @@ def fastaParser(directory, fasta_file_list, geneName, start, stop):
 				seq = ""
 				for line in fh:
 					line = line.strip()
-					line = line.readline()
+					#line = line.readline()
 					
 					if line.startswith('>'):
 						
@@ -68,6 +68,9 @@ def main():
 	with open("sorghum-VIT-gene-positions.tsv", 'r') as fh:
 	    for lst in fh:
 	        lst = lst.strip().split('\t')
+	        # Test code: 
+		# print('test lst')
+	        # print(lst)
 
 	fasta_file_list = []
 	for file in os.listdir(directory):
@@ -76,9 +79,12 @@ def main():
 	with open(output_file, 'w') as fout:
 
 		for i in range(0, len(lst), 3):
-			geneName = lst[i]
-			start = int(lst[i+1])
-			stop = int(lst[i+2])
+			start = int(lst[i])
+			stop = int(lst[i+1])
+			geneName = (lst[i+2])
+			# Test Code:
+			# print('test geneName')
+			# print(geneName)
 
 			for geneName, geneSeq in fastaParser(directory, fasta_file_list, geneName, start, stop): # input list element 
 				# test code
@@ -93,4 +99,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
