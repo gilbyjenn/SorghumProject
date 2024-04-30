@@ -19,7 +19,7 @@ def gffParser(directory, gff_file, gene_name):
 			if feature_type == 'gene':
 				for name in gene_name:
 					if name in attributes:
-						chromosome = fields[0] # chromosome 
+						chromosome = fields[0] # chromosome
 						start = fields[3]
 						print(start)
 						stop = fields[4]
@@ -40,7 +40,6 @@ def main():
 			line = line.strip().split(' ')
 			for i in range(len(line)):
 				gene_name.append(line[i])
-		# test code
 		# print(gene_name)
 
 	# iterate through gff files 
@@ -54,6 +53,7 @@ def main():
 				fout.write(start + '\t')
 				fout.write(stop + '\t')
 				fout.write(name + '\t')
+				# new line?
 				print('File updated.')
 		print('TSV file written. Program quitting...')
 			
@@ -61,4 +61,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
