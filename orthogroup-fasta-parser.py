@@ -5,11 +5,13 @@
 
 # write tsv file for each gene name (id) and region 
 
-og1 = ['353.004G328800', 'AusTRCF317961.004G261900', 'IS19953.004G326900', 'IS19953.004G327000', 'IS3614-3.004G305200', 'IS8525.004G336100', 'IS8525.004G336200', 'IS929.004G288600', 'Ji2731.004G334300', 'Ji2731.004G334400', 'PI525695.004G298000', 'PI525695.004G298100', 'PI532566.K002713', 'PI536008.004G098800', 'PI536008.004G098900', 'R931945-2-2.004G304000', 'R931945-2-2.004G304100', 'S369-1.004G252100', 'S369-1.004G252200', 'SbRio.04G321700', 'SbRio.04G321800', 'SbiCamber.04g046800', 'SbiCamber.04g046810', 'SbiGrassl.04g048530', 'SbiGrassl.04g048540', 'SbiLeoti.04g048500', 'SbiLeoti.04g048510', 'SbiPI229841.04g048450', 'SbiPI229841.04g048460', 'SbiPI297155.04g048480', 'SbiPI297155.04g048490', 'SbiPI329311.04g051380', 'SbiPI329311.04g051390', 'SbiPI506069.04g049010', 'SbiPI510757.04g049310', 'SbiPI510757.04g049320', 'SbiPI655972.04g048500', 'SbiPI655972.04g048510', 'Sobic.004G301500', 'Sobic.004G301600']
+og1_1 = ['S369-1.004G252200','SbiPI229841.04g048460','PI536008.004G098900','R931945-2-2.004G304100','IS8525.004G336200','SbiPI510757.04g049320','SbiPI655972.04g048510','Sobic.004G301600','SbiGrassl.04g048540','SbiPI506069.04g049010','SbiPI329311.04g051390','SbRio.04G321800','PI525695.004G298100','IS19953.004G327000','SbiCamber.04g046810','SbiPI297155.04g048490']
+og1_2 = ['S369-1.004G252100','AusTRCF317961.004G261900','SbRio.04G321700','PI525695.004G298000','IS19953.004G326900','SbiGrassl.04g048530','IS929.004G288600','R931945-2-2.004G304000','IS3614-3.004G305200','PI536008.004G098800','SbiPI510757.04g049310','SbiPI655972.04g048500','Sobic.004G301500','SbiPI329311.04g051380','SbiCamber.04g046800','IS8525.004G336100','SbiPI297155.04g048480','SbiPI229841.04g048450']
 og2 = ['IS3614-3.004G305400', 'PI525695.004G298200', 'SbRio.04G321900', 'SbiGrassl.04g048550', 'SbiPI329311.04g051400', 'SbiPI510757.04g049330', 'SbiPI655972.04g048520', 'Sobic.004G301650']
+# ['353.004G328800', 'AusTRCF317961.004G261900', 'IS19953.004G326900', 'IS19953.004G327000', 'IS3614-3.004G305200', 'IS8525.004G336100', 'IS8525.004G336200', 'IS929.004G288600', 'Ji2731.004G334300', 'Ji2731.004G334400', 'PI525695.004G298000', 'PI525695.004G298100', 'PI532566.K002713', 'PI536008.004G098800', 'PI536008.004G098900', 'R931945-2-2.004G304000', 'R931945-2-2.004G304100', 'S369-1.004G252100', 'S369-1.004G252200', 'SbRio.04G321700', 'SbRio.04G321800', 'SbiCamber.04g046800', 'SbiCamber.04g046810', 'SbiGrassl.04g048530', 'SbiGrassl.04g048540', 'SbiLeoti.04g048500', 'SbiLeoti.04g048510', 'SbiPI229841.04g048450', 'SbiPI229841.04g048460', 'SbiPI297155.04g048480', 'SbiPI297155.04g048490', 'SbiPI329311.04g051380', 'SbiPI329311.04g051390', 'SbiPI506069.04g049010', 'SbiPI510757.04g049310', 'SbiPI510757.04g049320', 'SbiPI655972.04g048500', 'SbiPI655972.04g048510', 'Sobic.004G301500', 'Sobic.004G301600']
 
 
-def getOG1(og1):
+def getOG1_1(og1_1):
 
 	header = None
 	seq = ""
@@ -27,7 +29,39 @@ def getOG1(og1):
 	        		yield header, seq
 	        		header = None
 
-	        	if line[1:] in og1: 
+	        	if line[1:] in og1_1: 
+	        		header = line 
+	        		seq = ""
+
+	        	else:
+	        		pass 
+
+	        else:
+	        	if header:
+	        		seq += line
+
+	        	else:
+	        		continue
+
+def getOG1_2(og1_2):
+
+	header = None
+	seq = ""
+
+	with open("iron_genes.fa", 'r') as fh:
+	    for line in fh:
+	        line = line.strip().split('\n')
+	        line = line[0]
+
+	        if line.startswith('>'):
+	        	if header:
+	        		#seq += line
+	        		print(header)
+	        		print(seq)
+	        		yield header, seq
+	        		header = None
+
+	        	if line[1:] in og1_2: 
 	        		header = line 
 	        		seq = ""
 
@@ -77,15 +111,16 @@ def getOG2(og2):
 
 def main():
 	
-	output_file1 = "iron_genes_orthogroup1.fa"
-	output_file2 = "iron_genes_orthogroup2.fa"
+	output_file1 = "iron_genes_orthogroup1-1.fa"
+	output_file2 = "iron_genes_orthogroup1-2.fa"
+	output_file3 = "iron_genes_orthogroup2.fa"
 	directory = '/Users/jennifergilby/cooperLab'
 
 
 
 	with open(output_file1, 'w') as fout:
 
-		for header,seq in getOG1(og1):
+		for header,seq in getOG1_1(og1_1):
 			print('Adding sequence for ' + str(header) + ' to file...')
 
 			fout.write(header + '\n')
@@ -93,6 +128,15 @@ def main():
 			print('\n\n file updated...')
 
 	with open(output_file2, 'w') as fout:
+
+		for header,seq in getOG1_2(og1_2):
+			print('Adding sequence for ' + str(header) + ' to file...')
+
+			fout.write(header + '\n')
+			fout.write(seq + '\n')
+			print('\n\n file updated...')
+	
+	with open(output_file3, 'w') as fout:
 
 		for header,seq in getOG2(og2):
 			print('Adding sequence for ' + str(header) + ' to file...')
