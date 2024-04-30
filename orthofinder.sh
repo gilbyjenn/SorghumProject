@@ -2,13 +2,15 @@
 
 #SBATCH --job-name=orthoFinder
 #SBATCH --partition=Orion
+#SBATCH --mail-user=jgilby@uncc.edu
+#SBATCH --mail-type=ALL
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --mem=64GB
 #SBATCH --time=72:00:00
 
+module load anaconda3 
 
-module load anaconda3
-source activate OrthoFinder 
+ortho=/projects/cooper_research/Programs/OrthoFinder_source
 
-orthofinder -f sorghumPepFiles -t 16
+$ortho/orthofinder.py -f primaryTranscripts -t 16
