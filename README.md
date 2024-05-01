@@ -22,13 +22,16 @@ This python script will take the previously written iron_genes.fa file and split
 The genes of each orthogroup were aligned using the web api for Clustal Omega.
 https://www.ebi.ac.uk/jdispatcher/msa/clustalo
 
+### 7. edit_alignments.py
+This script replaces the - characters with Ns in the alignment files. This is necessary for use of the haplonet.R script in constructing haplotype networks. 
+
 ## Data visualization
 ### 1. NJtrees.R
 This R script takes the aligned fasta files from step 6 and generates a neighbor joining tree. 
 
-### 2. haplonet.R 
-haplonet.R is an R script written by mhoban (https://github.com/mhoban/haplonet). The script on this repository has been slightly edited to force the use of the big-pallet color pallet and include a legend without need for command line arguments. haplonetEdited.R can be run on the command line using the following command: 
+### 2. haplonet_edited.R 
+haplonet.R is an R script written by mhoban (https://github.com/mhoban/haplonet). The script on this repository has been slightly edited to force the use of the big-pallet color pallet and include a legend and title without need for command line arguments. haplonetEdited.R can be run on the command line using the following command: 
 
-$ /usr/local/bin/Rscript ./debughapnet.R -f genotype og1-1_edited.fa og1data.tsv 
+$ /usr/local/bin/Rscript ./haplonet_edited.R -f genotype og1-1_edited.fa og1data.tsv 
 
-haplonet.R requires a data file containing descriptive information. The data files included here use the genotype name as the descriptor. 
+haplonet.R requires a data file containing descriptive information. The data files for this project use the genotype name as the descriptor. 
